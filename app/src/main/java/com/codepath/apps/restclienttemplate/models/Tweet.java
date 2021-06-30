@@ -20,15 +20,22 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
+    public String mediaUrl;
 
     // empty constructor needed by the Parceler Library
     public Tweet() {}
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("text");
+        tweet.body = jsonObject.getString("full_text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        if(!jsonObject.isNull("extended_entities")){
+            JSONObject extendedEntities = jsonObject.getJSONObject("extended_entities");
+            JSONArray jsonArray = extendedEntities.getJSONArray("media");
+            JSONObject media = jsonArray.getJSONObject(0);
+            tweet.mediaUrl = String.format("%s:large",media.getString("media_url_https"));
+        }
         return tweet;
     }
 
