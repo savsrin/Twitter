@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,8 +68,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivProfileImage;
         TextView tvBody;
-        TextView tvScreenName;
-        TextView tvRelativeTime;
+        TextView tvDisplayName;
+        TextView tvTimeStamp;
         ImageView ivEmbeddedImage;
 
 
@@ -76,15 +77,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             tvBody = itemView.findViewById(R.id.tvBody);
-            tvScreenName = itemView.findViewById(R.id.tvScreenName);
-            tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
+            tvDisplayName = itemView.findViewById(R.id.tvDisplayName);
+            tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
             ivEmbeddedImage = itemView.findViewById(R.id.ivEmbeddedImage);
         }
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
-            tvScreenName.setText(tweet.user.screenName);
-            tvRelativeTime.setText(tweet.getRelativeTimeAgo(tweet.createdAt));
+            String nameString = "<b>" + tweet.user.name + "</b> " + tweet.user.screenName;
+            tvDisplayName.setText(Html.fromHtml(nameString));
+            tvTimeStamp.setText(tweet.getTimeDifference(tweet.createdAt));
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
             if (tweet.mediaUrl != null) {
                 ivEmbeddedImage.setVisibility(View.VISIBLE);
