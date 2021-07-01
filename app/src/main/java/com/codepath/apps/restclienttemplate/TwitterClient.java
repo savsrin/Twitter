@@ -32,7 +32,7 @@ public class TwitterClient extends OAuthBaseClient {
 
 	// See https://developer.chrome.com/multidevice/android/intents
 	public static final String REST_CALLBACK_URL_TEMPLATE = "intent://%s#Intent;action=android.intent.action.VIEW;scheme=%s;package=%s;S.browser_fallback_url=%s;end";
-
+	//public Integer max_id;
 	public TwitterClient(Context context) {
 		super(context, REST_API_INSTANCE,
 				REST_URL,
@@ -42,6 +42,11 @@ public class TwitterClient extends OAuthBaseClient {
 				String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
+
+//	public void setMax_id(Integer max_id) {
+//		this.max_id = max_id;
+//	}
+
 	// CHANGE THIS
 	// DEFINE METHODS for different API endpoints here
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
@@ -58,6 +63,7 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
 		params.put("since_id", 1);
+		//params.put("max_id",this.max_id);
 		params.put("tweet_mode", "extended");
 		client.get(apiUrl, params, handler);
 	}
