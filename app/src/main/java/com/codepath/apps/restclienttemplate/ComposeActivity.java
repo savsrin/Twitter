@@ -28,17 +28,20 @@ public class ComposeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set up view binding
         super.onCreate(savedInstanceState);
         binding = ActivityComposeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        // Initialize client
         client = TwitterApp.getRestClient(this);
 
-        // Set click listener on button
+        // Set click listener on publish button
         binding.btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // make content check
+                // Check to see if content is valid
                 String tweetContent = binding.etCompose.getText().toString();
                 if (tweetContent.isEmpty()) {
                     Toast.makeText(ComposeActivity.this, "Sorry, your tweet cannot be empty.", Toast.LENGTH_LONG).show();
@@ -48,6 +51,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Sorry, your tweet exceeds the max character limit.", Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 // Make an API call to Twitter to publish the tweet
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override

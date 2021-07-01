@@ -91,11 +91,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
-            // nitialize and display fields in itemTweet in the RV
+            // Initialize and display fields in itemTweet in the RV
             itemTweetBinding.tvBody.setText(tweet.body);
             String nameString = "<b>" + tweet.user.name + "</b> " + tweet.user.screenName;
             itemTweetBinding.tvDisplayName.setText(Html.fromHtml(nameString));
-            itemTweetBinding.tvTimeStamp.setText(tweet.getTimeDifference(tweet.createdAt));
+            itemTweetBinding.tvTimeStamp.setText(tweet.getDisplayTimeStamp(tweet.createdAt));
             Glide.with(context).load(tweet.user.profileImageUrl).into(itemTweetBinding.ivProfileImage);
             if (tweet.mediaUrl != null) {
                 itemTweetBinding.ivEmbeddedImage.setVisibility(View.VISIBLE);

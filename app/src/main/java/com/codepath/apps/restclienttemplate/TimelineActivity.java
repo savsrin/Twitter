@@ -80,6 +80,7 @@ public class TimelineActivity extends AppCompatActivity {
         binding.rvTweets.setAdapter(adapter);
         populateHomeTimeline();
 
+        // Allow user to logout
         binding.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

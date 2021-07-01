@@ -30,20 +30,24 @@ public class ReplyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Set up view binding
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        userHandle = "@" + intent.getStringExtra("userHandle");
-        binding = ActivityReplyBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        // Intialize members
+        Intent intent = getIntent();
+        userHandle = "@" + intent.getStringExtra("userHandle"); //
+        binding = ActivityReplyBinding.inflate(getLayoutInflater());
         client = TwitterApp.getRestClient(this);
+        // populate compose text edit with the tag of the user you are replying to
         binding.etRepCompose.setText(userHandle);
 
-        // Set click listener on button
+        // Set click listener on publsh button
         binding.btnRepTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String tweetContent = binding.etRepCompose.getText().toString();
+                // Check if content is valid tweet
                 if (tweetContent.isEmpty()) {
                     Toast.makeText(ReplyActivity.this, "Sorry, your tweet cannot be empty.", Toast.LENGTH_LONG).show();
                     return;
@@ -52,7 +56,8 @@ public class ReplyActivity extends AppCompatActivity {
                     Toast.makeText(ReplyActivity.this, "Sorry, your tweet exceeds the max character limit.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                // Make an API call to Twitter to publish the tweet
+
+                // Make an API call to Twitter to publish the tweet reply
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
