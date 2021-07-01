@@ -35,6 +35,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:text="TextView"
         tools:text="This is my tweet." />
 
@@ -63,22 +65,45 @@
         android:scaleType="fitCenter"
         tools:srcCompat="@tools:sample/avatars" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/tvUsername"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignTop="@id/tvHandle"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginStart="82dp"-->
-<!--        android:layout_marginTop="7dp"-->
-<!--        android:layout_marginBottom="11dp"-->
-<!--        android:layout_toStartOf="@+id/tvTimeStamp"-->
-<!--        android:layout_toEndOf="@+id/ivProfileImage"-->
-<!--        android:ellipsize="end"-->
-<!--        android:maxLines="1"-->
-<!--        android:text="TextView"-->
-<!--        android:textStyle="bold"-->
-<!--        tools:text="savsrin" />-->
+    <ImageButton
+        android:id="@+id/ibReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/ivEmbeddedImage"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/medium_gray_50"
+        app:srcCompat="@drawable/ic_vector_compose_dm" />
+
+    <ImageButton
+        android:id="@+id/ibRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/ivEmbeddedImage"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ibReply"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/medium_gray_50"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
+
+    <ImageButton
+        android:id="@+id/ibLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivEmbeddedImage"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ibReply"
+        android:backgroundTint="#00FFFFFF"
+        android:tint="@color/medium_gray_50"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+
 
 <!--    <ImageButton-->
 <!--        android:id="@+id/ibRetweet"-->

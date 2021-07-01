@@ -43,27 +43,24 @@ public class TwitterClient extends OAuthBaseClient {
 						context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
 	}
 
-//	public void setMax_id(Integer max_id) {
-//		this.max_id = max_id;
-//	}
-
-	// CHANGE THIS
-	// DEFINE METHODS for different API endpoints here
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
 	public void getHomeTimeline(JsonHttpResponseHandler handler) {
+		// define endpoint URL
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
-		// Can specify query string params directly or through RequestParams.
+		// define parameters to pass to request
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
 		params.put("since_id", 1);
-		//params.put("max_id",this.max_id);
+		params.put("tweet_mode", "extended");
+		// define request method and make a call to the client
+		client.get(apiUrl, params, handler);
+	}
+
+	public void getOlderTweets(Long max_id, JsonHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/home_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		// twitter will return tweets with ids less than or equal to max_id
+		params.put("max_id",max_id);
 		params.put("tweet_mode", "extended");
 		client.get(apiUrl, params, handler);
 	}
@@ -76,6 +73,5 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("tweet_mode", "extended");
 		client.post(apiUrl, params, "", handler);
 	}
-
 
 }

@@ -27,7 +27,7 @@ public class Tweet {
     public String createdAt;
     public User user;
     public String mediaUrl;
-    public Integer id;
+    public Long id;
 
     // empty constructor needed by the Parceler Library
     public Tweet() {}
@@ -37,7 +37,7 @@ public class Tweet {
         tweet.body = jsonObject.getString("full_text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
-        tweet.id = jsonObject.getInt("id");
+        tweet.id = jsonObject.getLong("id");
         if(!jsonObject.isNull("extended_entities")){
             JSONObject extendedEntities = jsonObject.getJSONObject("extended_entities");
             JSONArray jsonArray = extendedEntities.getJSONArray("media");
@@ -54,58 +54,7 @@ public class Tweet {
         }
         return tweets;
     }
-
-
-
-    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
-//    public String getRelativeTimeAgo(String rawJsonDate) {
-//        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-//        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-//        sf.setLenient(true);
-//
-//        String relativeDate = "";
-//        try {
-//            long dateMillis = sf.parse(rawJsonDate).getTime();
-//            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-//                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return relativeDate;
-//    }
-
-//    public String getRelativeTimeAgo(String rawJsonDate) {
-//        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-//        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-//        sf.setLenient(true);
-//
-//        try {
-//            long time = sf.parse(rawJsonDate).getTime();
-//            long now = System.currentTimeMillis();
-//
-//            final long diff = now - time;
-//            if (diff < MINUTE_MILLIS) {
-//                return "just now";
-//            } else if (diff < 2 * MINUTE_MILLIS) {
-//                return "a minute ago";
-//            } else if (diff < 50 * MINUTE_MILLIS) {
-//                return diff / MINUTE_MILLIS + " m";
-//            } else if (diff < 90 * MINUTE_MILLIS) {
-//                return "an hour ago";
-//            } else if (diff < 24 * HOUR_MILLIS) {
-//                return diff / HOUR_MILLIS + " h";
-//            } else if (diff < 48 * HOUR_MILLIS) {
-//                return "yesterday";
-//            } else {
-//                return diff / DAY_MILLIS + " d";
-//            }
-//        } catch (ParseException e) {
-//            Log.i("Tweet", "getRelativeTimeAgo failed");
-//            e.printStackTrace();
-//        }
-//
-//        return "";
-//    }
+    
 public static String getTimeDifference(String rawJsonDate) {
     String time = "";
     String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
