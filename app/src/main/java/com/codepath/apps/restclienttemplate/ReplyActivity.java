@@ -32,12 +32,13 @@ public class ReplyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // Set up view binding
         super.onCreate(savedInstanceState);
+        binding = ActivityReplyBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         // Intialize members
         Intent intent = getIntent();
         userHandle = "@" + intent.getStringExtra("userHandle"); //
-        binding = ActivityReplyBinding.inflate(getLayoutInflater());
+
         client = TwitterApp.getRestClient(this);
         // populate compose text edit with the tag of the user you are replying to
         binding.etRepCompose.setText(userHandle);
