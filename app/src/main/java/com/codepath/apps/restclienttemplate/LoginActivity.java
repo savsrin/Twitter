@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
+
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
@@ -17,6 +19,12 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// Code to make the twitter icon appear on action bar
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayShowHomeEnabled(true);
+		actionBar.setTitle("");
+		actionBar.setIcon(R.drawable.ic_twitterlogo);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 

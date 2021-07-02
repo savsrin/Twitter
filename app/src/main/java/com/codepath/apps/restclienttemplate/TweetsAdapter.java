@@ -19,6 +19,7 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     private final int REQUEST_CODE = 20;
     Context context;
     List<Tweet> tweets;
+    TwitterClient client;
 
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         // pass in the context and list of tweets
@@ -91,6 +93,48 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+            itemTweetBinding.ibLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    client = TwitterApp.getRestClient(context);
+                    final int position = getAdapterPosition();
+                    if (position != -1) {
+                        // Get position of tweet being replied to in RV
+                        Tweet tweet = tweets.get(position);
+                        if (!tweet.isLiked) {
+                            client.likeTweet(tweet.id, new JsonHttpResponseHandler() {
+                                @Override
+                                public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                }
+                            });
+                        } else {
+                            client.dislikeTweet(tweet.id, new JsonHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                        }
+                                    }
+                            );
+                        }
+
+                        }
+
+
+
+
+                }
+            });
+
+
+
+
             // Initialize and display fields in itemTweet in the RV
             itemTweetBinding.tvBody.setText(tweet.body);
             String nameString = "<b>" + tweet.user.name + "</b> " + tweet.user.screenName;
@@ -104,6 +148,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             } else {
                 itemTweetBinding.ivEmbeddedImage.setVisibility(View.GONE);
             }
+            itemTweetBinding.tvFavCount.setText(tweet.favoritesCount.toString());
 
         }
 

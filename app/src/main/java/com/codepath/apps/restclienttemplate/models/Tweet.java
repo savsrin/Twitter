@@ -28,6 +28,9 @@ public class Tweet {
     public User user;
     public String mediaUrl;
     public Long id;
+    public Integer favoritesCount;
+    public Boolean isLiked;
+
 
     // empty constructor required by the Parceler Library
     public Tweet() {}
@@ -38,6 +41,8 @@ public class Tweet {
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.id = jsonObject.getLong("id");
+        tweet.favoritesCount = jsonObject.getInt("favorite_count");
+        tweet.isLiked = jsonObject.getBoolean("favorited");
         if(!jsonObject.isNull("extended_entities")){
             JSONObject extendedEntities = jsonObject.getJSONObject("extended_entities");
             JSONArray jsonArray = extendedEntities.getJSONArray("media");
