@@ -105,6 +105,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             client.likeTweet(tweet.id, new JsonHttpResponseHandler() {
                                 @Override
                                 public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                    tweets.get(position).favoritesCount += 1;
+                                    tweets.get(position).isLiked = true;
+                                    notifyItemChanged(position);
                                 }
 
                                 @Override
@@ -115,6 +118,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             client.dislikeTweet(tweet.id, new JsonHttpResponseHandler() {
                                         @Override
                                         public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                            tweets.get(position).favoritesCount -= 1;
+                                            tweets.get(position).isLiked =  false;
+                                            notifyItemChanged(position);
                                         }
 
                                         @Override
